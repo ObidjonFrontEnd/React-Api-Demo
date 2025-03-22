@@ -10,7 +10,7 @@ export const AppContext = createContext();
 export function ContextBody({children}){
 		const [langth , langhtSet] = useState(true)
 		const [isToken , isTokenSet] = useState(false)
-		const [them , themSet] = useState('true');
+		const [them , themSet] = useState(true);
 
 		useEffect(() => {
 			const token = localStorage.getItem('token') 

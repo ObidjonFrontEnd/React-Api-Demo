@@ -1,36 +1,66 @@
-import axios from 'axios'
-import React, { useContext, useState } from 'react'
+//import axios from 'axios'
+import React, { useContext,useState } from 'react'
 import { FaUser } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from '../axios/axios'
 import { AppContext } from '../context/ContexApi'
 
 function Registration() {
-	const { langth, isTokenSet , them } = useContext(AppContext)
+	const { langth, isTokenSet, them , isToken} = useContext(AppContext)
 
 	const [name, nameSet] = useState('')
 	const [email, emailSet] = useState('')
 	const [password, passwordSet] = useState('')
+	const [error, setError] = useState(null)
 
 	const navigate = useNavigate()
+
+
+	setTimeout(()=>{
+		if(isToken){
+			return navigate('/')
+		}
+	},0)
 
 	function Submit(event) {
 		event.preventDefault()
 		axios
-			.post('https://nt-devconnector.onrender.com/api/users', {
+			.post('/api/users', {
 				name,
 				email,
 				password,
 			})
 			.then(res => {
-				localStorage.setItem('token', res.data.token)
-				navigate('/dashboard')
-				isTokenSet(true)
+				const apiData = res.data
+				console.log(apiData);
+				
+				if ( apiData.token && apiData.token != '') {
+					localStorage.setItem('token', apiData.token)
+					isTokenSet(true)
+					navigate('/dashboard')
+				}
+			})
+			.catch(function (error) {
+				if (error.response) {
+					setError(error.response.data.errors[0].msg)
+					console.log(error.response.data.errors[0])
+				}
+			})
+			.finally(() => {
+				console.log('ok')
 			})
 	}
 
 	return (
 		<>
-			<div style={{backgroundColor:them? 'white' : '#293133' , color:them? "black":"white"}} className='bg-white w-full px-[20px] md:px-[60px] h-[calc(100vh-70px)] pt-[30px] absolute'>
+			<div
+				style={{
+					backgroundColor: them ? 'white' : '#293133',
+					color: them ? 'black' : 'white',
+				}}
+				className='bg-white w-full px-[20px] md:px-[60px] h-[calc(100vh-70px)] pt-[30px] absolute'
+			>
+				<h1>{error}</h1>
 				<form action='' onSubmit={Submit}>
 					<h2 className='text-primary text-[48px] font-bold mb-[16px]'>
 						{langth ? 'Registration' : 'Roʻyxatdan oʻtish'}
@@ -79,9 +109,9 @@ function Registration() {
 					</button>
 
 					<p className='text-[16px]'>
-					{langth ? 'Already have an account?' : `Hisobingiz bormi?`}{' '}
+						{langth ? 'Already have an account?' : `Hisobingiz bormi?`}{' '}
 						<Link to='/login' className='text-primary '>
-						{langth ? 'Login' : `Tizimga kirish`}
+							{langth ? 'Login' : `Tizimga kirish`}
 						</Link>
 					</p>
 				</form>

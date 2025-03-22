@@ -25,15 +25,15 @@ function Developers() {
       {
         profil.map((obj , index)=>{
             return (
-              <div key={index} className="bg-[#f4f4f4] flex items-center justify-between p-[20px] rounded-[8px] border-solid border-[1px] border-gray-300 w-full lg:max-w-[1000px] lg:min-w-[1000px] mx-auto">
+              <div key={index} className="bg-[#f4f4f4] flex items-center justify-between p-[20px] rounded-[8px] border-solid border-[1px] border-gray-300 w-full lg:max-w-[1000px] lg:min-w-[1000px] mx-auto overflow-hidden ">
                 
                 <div className="flex items-center gap-[50px] flex-col md:flex-row justify-center w-full md:w-fit">
-                    <div className="W-[170px] h-[170px] mx-auto">
+                    <div className="min-W-[170px] h-[170px] mx-auto">
                         <img src={obj.user.avatar} className='rounded-[50%] w-full h-full' alt="" />
                     </div>
 
-                    <div className="flex flex-col gap-[10px] items-center md:items-start text-black">
-                      <h1 className='font-bold text-[20px]'>{obj.user.name}</h1>
+                    <div className="flex flex-col gap-[10px] items-center md:items-start text-black ">
+                      <h1 className='font-bold text-[20px] text-wrap'>{obj.user.name}</h1>
                       <h1>{obj.company}</h1>
                       <h1>{obj.location}</h1>
                       <Link to='/' className='bg-primary px-[20px] py-[7px] rounded-[4px] text-white'>
@@ -42,7 +42,7 @@ function Developers() {
                     </div>
                 </div>
 
-                <div className="text-primary md:flex gap-[5px] items-center hidden">
+                <div className="text-primary md:flex gap-[5px] items-center hidden text-wrap">
                   <FaCheck />
                   <h1>{obj.skills}</h1>
                 </div>
