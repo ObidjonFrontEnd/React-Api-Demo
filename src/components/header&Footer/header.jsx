@@ -7,8 +7,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/ContexApi'
 
 function Header() {
-	const { langth, langhtSet, isToken, isTokenSet, them, themSet } =useContext(AppContext)
-	const [open , close] = useState(false)
+	const { langth, langhtSet, isToken, isTokenSet, them, themSet } =
+		useContext(AppContext)
+	const [open, close] = useState(false)
 
 	const navigate = useNavigate()
 
@@ -63,7 +64,7 @@ function Header() {
 							style={{ display: isToken ? 'block' : 'none' }}
 							className='hover:text-primary duration-[0.3s]'
 						>
-							<Link to='/login'>Posts</Link>
+							<Link to='/post'>Posts</Link>
 						</li>
 
 						<li
@@ -90,13 +91,20 @@ function Header() {
 						</li>
 					</ul>
 
-					<button onClick={()=>close(!open)} className='md:hidden text-[20px] hover:text-primary duration-[0.3s] '>
+					<button
+						onClick={() => close(!open)}
+						className='md:hidden text-[20px] hover:text-primary duration-[0.3s] '
+					>
 						<GiHamburgerMenu />
 					</button>
 				</header>
 			</div>
 
-			<div  className={` ${open? '' : 'translate-x-full'} nav w-full h-full fixed top-0 bg-black/50 z-50 flex justify-center items-center text-white  duration-[1s]`}>
+			<div
+				className={` ${
+					open ? '' : 'translate-x-full'
+				} nav w-full h-full fixed top-0 bg-black/50 z-50 flex justify-center items-center text-white  duration-[1s]`}
+			>
 				<ul className=' gap-[30px] items-center text-[25px] justify-center text-center'>
 					<li className='hover:text-primary duration-[0.3s]'>
 						<Link to='/developers'>Developers</Link>
@@ -120,7 +128,7 @@ function Header() {
 						style={{ display: isToken ? 'block' : 'none' }}
 						className='hover:text-primary duration-[0.3s]'
 					>
-						<Link to='/login'>Posts</Link>
+						<Link to='/post'>Posts</Link>
 					</li>
 
 					<li
@@ -161,10 +169,9 @@ function Header() {
 				</ul>
 
 				<div className=' absolute top-[21px] right-[37px] text-white text-[25px]'>
-				<FaXmark onClick={()=>close(!open)} />
+					<FaXmark onClick={() => close(!open)} />
 				</div>
 			</div>
-			
 		</div>
 	)
 }

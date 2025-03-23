@@ -11,7 +11,7 @@ export function ContextBody({children}){
 		const [langth , langhtSet] = useState(true)
 		const [isToken , isTokenSet] = useState(false)
 		const [them , themSet] = useState(true);
-
+		
 		useEffect(() => {
 			const token = localStorage.getItem('token') 
 
@@ -20,7 +20,7 @@ export function ContextBody({children}){
 
 
 		return(
-			<AppContext.Provider  value={{langth , langhtSet , isToken , isTokenSet , them , themSet}} >
+			<AppContext.Provider  value={{langth , langhtSet , isToken , isTokenSet , them , themSet }} >
 				{children}
 			</AppContext.Provider>
 

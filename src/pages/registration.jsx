@@ -43,7 +43,6 @@ function Registration() {
 			.catch(function (error) {
 				if (error.response) {
 					setError(error.response.data.errors[0].msg)
-					console.log(error.response.data.errors[0])
 				}
 			})
 			.finally(() => {

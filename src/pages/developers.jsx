@@ -36,7 +36,8 @@ function Developers() {
                       <h1 className='font-bold text-[20px] text-wrap'>{obj.user.name}</h1>
                       <h1>{obj.company}</h1>
                       <h1>{obj.location}</h1>
-                      <Link to='/' className='bg-primary px-[20px] py-[7px] rounded-[4px] text-white'>
+               
+                      <Link to={`/profile/${obj.user._id}`} className='bg-primary px-[20px] py-[7px] rounded-[4px] text-white'>
                           View Profile
                       </Link>
                     </div>
