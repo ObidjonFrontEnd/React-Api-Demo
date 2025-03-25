@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Route, HashRouter as Router, Routes } from 'react-router-dom'
 import MainLayaout from './components/layout/MainLayout'
 import { AppContext } from './context/ContexApi'
 import Home from './pages/Home'
@@ -8,8 +8,8 @@ import Developers from './pages/developers'
 import Login from './pages/login'
 import PostData from './pages/post'
 import Post from './pages/posts'
-import Registration from './pages/registration'
 import Profil from './pages/profil'
+import Registration from './pages/registration'
 
 function App() {
 	const { isToken } = useContext(AppContext)
@@ -26,7 +26,7 @@ function App() {
 						<Route path='/dashboard' element={<Dashboard />} />
 						<Route path='/post' element={<Post />} />
 						<Route path='/post/:id' element={<PostData />} />
-						<Route path='/profile/:id' element={<Profil/>} />
+						<Route path='/profile/:id' element={<Profil />} />
 					</Route>
 				</Routes>
 			</Router>
