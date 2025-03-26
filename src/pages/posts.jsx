@@ -20,7 +20,8 @@ function Post() {
 					},
 				}
 			)
-			.then( () => {
+			.then(() => {
+				textSet('')
 				Read()
 			})
 			.catch(error => {
@@ -58,6 +59,7 @@ function Post() {
 					Say Something...
 				</h2>
 				<textarea
+					value={text}
 					onChange={e => {
 						textSet(e.target.value)
 					}}

@@ -7,7 +7,7 @@ function PostData() {
 	const { id } = useParams()
 	const [user, userSet] = useState([])
 	const token = localStorage.getItem('token')
-	const [text, textSet] = useState('salom')
+	const [text, textSet] = useState('')
 	const [comment, commentSet] = useState([])
 
 	function SubmitText(event) {
