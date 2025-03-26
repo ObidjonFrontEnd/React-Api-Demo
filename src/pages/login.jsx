@@ -5,7 +5,7 @@ import axios from '../axios/axios'
 import { AppContext } from '../context/ContexApi'
 
 function Login() {
-	const { langth, isTokenSet, them, isToken } = useContext(AppContext)
+	const { langth, isTokenSet, them } = useContext(AppContext)
 	const [isError, isErrorSet] = useState(false)
 	const [email, emailSet] = useState('')
 	const [password, passwordSet] = useState('')
@@ -13,11 +13,6 @@ function Login() {
 	const [loading , loadingSet] = useState(false)
 	const navigate = useNavigate()
 
-	setTimeout(() => {
-		if (isToken) {
-			return navigate('/')
-		}
-	}, 0)
 
 	function Submit(event) {
 		event.preventDefault()

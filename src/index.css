@@ -2,3 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+.active{
+	color: #17a2b8;
+	position: relative;
+	transition: all 1s ease;
+	display: flex;
+}
+
+.active::before{
+	position: absolute;
+	content: ' ';
+	height: 2px;
+	left: 50%;
+  transform: translateX(-50%);
+	background-color: #17a2b8;
+	animation: Active;
+	animation-duration:1.15s;
+	animation-fill-mode: forwards;
+	bottom: 0;
+}
+@keyframes Active{
+	from{
+		width: 0%; 
+	}
+	to{
+		width: 100%;
+	}
+}
+

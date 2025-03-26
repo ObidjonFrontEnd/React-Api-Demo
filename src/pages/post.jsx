@@ -7,8 +7,8 @@ function PostData() {
 	const { id } = useParams()
 	const [user, userSet] = useState([])
 	const token = localStorage.getItem('token')
-	const [text, textSet] = useState('')
- 	const [comment , commentSet] =useState([])
+	const [text, textSet] = useState('salom')
+	const [comment, commentSet] = useState([])
 
 	function SubmitText(event) {
 		event.preventDefault()
@@ -23,31 +23,32 @@ function PostData() {
 				}
 			)
 			.then(res => {
-				Read()	
+				Read()
+				return console.log(res)
 			})
 			.catch(error => {
 				console.log(error)
 			})
+
+		textSet('')
 	}
 
 	useEffect(() => {
-		
 		Read()
-		
 	}, [])
 
-	function Read(){
+	function Read() {
 		axios
-		.get(`/api/posts/${id}`, {
-			headers: {
-				'x-auth-token': token,
-			},
-		})
-		.then(res => {
-			const apiData = res.data
-			commentSet(res.data.comments)
-			userSet(apiData)
-		})
+			.get(`/api/posts/${id}`, {
+				headers: {
+					'x-auth-token': token,
+				},
+			})
+			.then(res => {
+				const apiData = res.data
+				commentSet(res.data.comments)
+				userSet(apiData)
+			})
 	}
 
 	return (
@@ -100,50 +101,48 @@ function PostData() {
 					onSubmit={SubmitText}
 					className='max-w-[1000px] mx-auto mb-[30px]'
 				>
-					<textarea
+					<input
+						value={text}
 						onChange={e => {
 							textSet(e.target.value)
 						}}
 						name=''
 						id=''
+						type='text'
 						className='border-gray-300 border-[1px] w-full max-h-[126px] min-h-[126px] mb-[10px] px-[20px] py-[10px] outline-none'
-					></textarea>
+					/>
 					<button className='text-[16px] px-[21px] py-[7px] bg-[#343a40] text-white rounded-[4px]'>
 						submit
 					</button>
 				</form>
 
 				<div className=''>
-					{
-						comment.map((data, index)=>{
-							return (
-								<div
-								 	key={index}
-									className='flex flex-col md:flex-row gap-[50px] items-center border-gray-300 border-[1px] rounded-[4px] md:px-[20px] py-[10px] mx-auto max-w-[1000px] mb-[20px]'
-								>
-									<div className='avatar flex justify-center items-center flex-col'>
-										<div className='max-w-[170px] min-w-[170px] mx-auto'>
-											<img
-												src={data.avatar}
-												alt=''
-												className='w-full h-full rounded-[50%]'
-											/>
-										</div>
-										<h2>{data.name}</h2>
+					{comment.map((data, index) => {
+						return (
+							<div
+								key={index}
+								className='flex flex-col md:flex-row gap-[50px] items-center border-gray-300 border-[1px] rounded-[4px] md:px-[20px] py-[10px] mx-auto max-w-[1000px] mb-[20px]'
+							>
+								<div className='avatar flex justify-center items-center flex-col'>
+									<div className='max-w-[170px] min-w-[170px] mx-auto'>
+										<img
+											src={data.avatar}
+											alt=''
+											className='w-full h-full rounded-[50%]'
+										/>
 									</div>
-		
-									<div className=''>
-										<h2 className='text-[16px] mb-[10px]'>{data.text}</h2>
-										<p className='text-[12.5px] text-[#AAAA] mb-[10px]'>
-											{data.date}
-										</p>
-									
-									</div>
+									<h2>{data.name}</h2>
 								</div>
-							)
-						})
-						
-					}
+
+								<div className=''>
+									<h2 className='text-[16px] mb-[10px]'>{data.text}</h2>
+									<p className='text-[12.5px] text-[#AAAA] mb-[10px]'>
+										{data.date}
+									</p>
+								</div>
+							</div>
+						)
+					})}
 				</div>
 			</div>
 		</>

@@ -3,7 +3,7 @@ import { FaCode, FaMoon, FaSun, FaUser } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdLogout } from 'react-icons/md'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AppContext } from '../../context/ContexApi'
 
 function Header() {
@@ -43,38 +43,38 @@ function Header() {
 							</button>
 						</li>
 						<li className='hover:text-primary duration-[0.3s]'>
-							<Link to='/developers'>Developers</Link>
+							<NavLink to='/developers'>Developers</NavLink>
 						</li>
 
 						<li
 							style={{ display: isToken ? 'none' : 'block' }}
 							className='hover:text-primary duration-[0.3s]'
 						>
-							<Link to='/registration'>Register</Link>
+							<NavLink to='/registration'>Register</NavLink>
 						</li>
 
 						<li
 							style={{ display: isToken ? 'none' : 'block' }}
 							className='hover:text-primary duration-[0.3s]'
 						>
-							<Link to='/login'>Login</Link>
+							<NavLink to='/login'>Login</NavLink>
 						</li>
 
 						<li
 							style={{ display: isToken ? 'block' : 'none' }}
 							className='hover:text-primary duration-[0.3s]'
 						>
-							<Link to='/post'>Posts</Link>
+							<NavLink to='/post'>Posts</NavLink>
 						</li>
 
 						<li
 							style={{ display: isToken ? 'block' : 'none' }}
 							className='hover:text-primary duration-[0.3s]'
 						>
-							<Link to='/dashboard' className='flex gap-[5px] items-center'>
+							<NavLink to='/dashboard' className='flex gap-[5px] items-center'>
 								<FaUser />
 								Dashboard
-							</Link>
+							</NavLink>
 						</li>
 
 						<li
@@ -107,38 +107,38 @@ function Header() {
 			>
 				<ul className=' gap-[30px] items-center text-[25px] justify-center text-center'>
 					<li className='hover:text-primary duration-[0.3s]'>
-						<Link to='/developers'>Developers</Link>
+						<NavLink to='/developers'>Developers</NavLink>
 					</li>
 
 					<li
 						style={{ display: isToken ? 'none' : 'block' }}
 						className='hover:text-primary duration-[0.3s]'
 					>
-						<Link to='/registration'>Register</Link>
+						<NavLink to='/registration'>Register</NavLink>
 					</li>
 
 					<li
 						style={{ display: isToken ? 'none' : 'block' }}
 						className='hover:text-primary duration-[0.3s]'
 					>
-						<Link to='/login'>Login</Link>
+						<NavLink to='/login'>Login</NavLink>
 					</li>
 
 					<li
 						style={{ display: isToken ? 'block' : 'none' }}
 						className='hover:text-primary duration-[0.3s]'
 					>
-						<Link to='/post'>Posts</Link>
+						<NavLink to='/post'>Posts</NavLink>
 					</li>
 
 					<li
 						style={{ display: isToken ? 'block' : 'none' }}
 						className='hover:text-primary duration-[0.3s]'
 					>
-						<Link to='/dashboard' className='flex gap-[5px] items-center'>
+						<NavLink to='/dashboard' className='flex gap-[5px] items-center'>
 							<FaUser />
 							Dashboard
-						</Link>
+						</NavLink>
 					</li>
 
 					<li

@@ -6,7 +6,7 @@ import axios from '../axios/axios'
 import { AppContext } from '../context/ContexApi'
 
 function Registration() {
-	const { langth, isTokenSet, them , isToken} = useContext(AppContext)
+	const { langth, isTokenSet, them } = useContext(AppContext)
 
 	const [name, nameSet] = useState('')
 	const [email, emailSet] = useState('')
@@ -16,11 +16,6 @@ function Registration() {
 	const navigate = useNavigate()
 
 
-	setTimeout(()=>{
-		if(isToken){
-			return navigate('/')
-		}
-	},0)
 
 	function Submit(event) {
 		event.preventDefault()

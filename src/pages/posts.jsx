@@ -20,7 +20,7 @@ function Post() {
 					},
 				}
 			)
-			.then(res => {
+			.then( () => {
 				Read()
 			})
 			.catch(error => {
@@ -54,7 +54,9 @@ function Post() {
 			</div>
 
 			<form onSubmit={SubmitText} className='max-w-[1000px] mx-auto mb-[30px]'>
-				<h2 className='text-[19px] font-medium bg-primary w-full h-[40px] py-[5px] mb-[10px] text-white px-[20px]'>Say Something...</h2>
+				<h2 className='text-[19px] font-medium bg-primary w-full h-[40px] py-[5px] mb-[10px] text-white px-[20px]'>
+					Say Something...
+				</h2>
 				<textarea
 					onChange={e => {
 						textSet(e.target.value)
@@ -67,7 +69,7 @@ function Post() {
 					submit
 				</button>
 			</form>
-			
+
 			<div className=''>
 				{post.map((data, index) => {
 					return (
