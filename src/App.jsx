@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Navigate, Route, HashRouter as Router, Routes } from 'react-router-dom'
 import MainLayaout from './components/layout/MainLayout'
 import { AppContext } from './context/ContexApi'
-import Page404 from './pages/404'
+import NotFoundPage from './pages/404'
 import Home from './pages/Home'
 import Dashboard from './pages/dashboard'
 import Developers from './pages/developers'
@@ -74,9 +74,8 @@ function App() {
 								</ProtateRoute>
 							}
 						/>
-
-						<Route path='*' element={<Page404 />} />
 					</Route>
+					<Route path='*' element={<NotFoundPage />} />
 				</Routes>
 			</Router>
 		</>
