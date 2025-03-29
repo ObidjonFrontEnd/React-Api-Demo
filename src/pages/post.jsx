@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { BiSolidDislike, BiSolidLike } from 'react-icons/bi'
 import { Link, useParams } from 'react-router-dom'
 import axios from '../axios/axios'
+import usePostData from '../hooks/Post'
 
 function PostData() {
 	const { id } = useParams()
@@ -10,27 +11,35 @@ function PostData() {
 	const [text, textSet] = useState('')
 	const [comment, commentSet] = useState([])
 
-	function SubmitText(event) {
-		event.preventDefault()
-		axios
-			.post(
-				`/api/posts/comment/${id}`,
-				{ text: text },
-				{
-					headers: {
-						'x-auth-token': token,
-					},
-				}
-			)
-			.then(res => {
-				Read()
-				return console.log(res)
-			})
-			.catch(error => {
-				console.log(error)
-			})
+	// function SubmitText(event) {
+	// 	event.preventDefault()
+	// 	axios
+	// 		.post(
+	// 			`/api/posts/comment/${id}`,
+	// 			{ text: text },
+	// 			{
+	// 				headers: {
+	// 					'x-auth-token': token,
+	// 				},
+	// 			}
+	// 		)
+	// 		.then(res => {
+	// 			Read()
+	// 			return console.log(res)
+	// 		})
+	// 		.catch(error => {
+	// 			console.log(error)
+	// 		})
 
+	// 	textSet('')
+	// }
+
+	const { postData } = usePostData(`/posts/comment/${id}`)
+	const SubmitText = async event => {
+		event.preventDefault()
+		await postData({ text })
 		textSet('')
+		Read()
 	}
 
 	useEffect(() => {

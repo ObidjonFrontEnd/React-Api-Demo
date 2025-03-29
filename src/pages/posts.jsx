@@ -1,40 +1,43 @@
 import { useEffect, useState } from 'react'
 import { BiSolidDislike, BiSolidLike } from 'react-icons/bi'
+import { FaXmark } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import axios from '../axios/axios'
+import useDeleteData from '../hooks/Delete'
+import useDisLike from '../hooks/disLike'
+import useGetData from '../hooks/Get'
+import usePostData from '../hooks/Post'
+import useUpdateData from '../hooks/put'
 
 function Post() {
 	const [post, postSet] = useState([])
 	const [text, textSet] = useState('')
 	const token = localStorage.getItem('token')
 
-	function SubmitText(event) {
-		event.preventDefault()
-		axios
-			.post(
-				'/api/posts',
-				{ text: text },
-				{
-					headers: {
-						'x-auth-token': token,
-					},
-				}
-			)
-			.then(() => {
-				textSet('')
-				Read()
-			})
-			.catch(error => {
-				console.log(error)
-			})
+	const { postData } = usePostData('/posts')
+
+	const { deleteData } = useDeleteData('/posts')
+
+	const handleDelete = async userId => {
+		await deleteData(userId)
+		await Read()
 	}
+
+	const SubmitText = async event => {
+		event.preventDefault()
+		await postData({ text })
+		textSet('')
+		Read()
+	}
+
+	const { data: userData } = useGetData('/profile/me')
 
 	useEffect(() => {
 		Read()
 	}, [])
 
-	function Read() {
-		axios
+	async function Read() {
+		await axios
 			.get('/api/posts', {
 				headers: {
 					'x-auth-token': token,
@@ -45,6 +48,20 @@ function Post() {
 					postSet(res.data)
 				}
 			})
+	}
+
+	const { updateData } = useUpdateData('/posts/like')
+
+	const handleUpdate = async userId => {
+		await updateData(userId)
+		Read()
+	}
+
+	const { updisData } = useDisLike('/posts/unlike')
+
+	const disLike = async userId => {
+		await updisData(userId)
+		Read()
 	}
 
 	return (
@@ -73,10 +90,10 @@ function Post() {
 			</form>
 
 			<div className=''>
-				{post.map((data, index) => {
+				{post?.map(data => {
 					return (
 						<div
-							key={index}
+							key={data?._id}
 							className='flex flex-col md:flex-row gap-[50px] items-center border-gray-300 border-[1px] rounded-[4px] md:px-[20px] py-[10px] mx-auto max-w-[1000px] mb-[20px]'
 						>
 							<div className='avatar flex justify-center items-center flex-col'>
@@ -91,23 +108,47 @@ function Post() {
 							</div>
 
 							<div className=''>
-								<h2 className='text-[16px] mb-[10px]'>{data.text}</h2>
+								<h2 className='text-[16px] mb-[10px]'>{data?.text}</h2>
 								<p className='text-[12.5px] text-[#AAAA] mb-[10px]'>
-									{data.date}
+									{data?.date}
 								</p>
 								<div className='flex items-center gap-[10px]'>
-									<button className='h-[38px] w-[57px] bg-[#f4f4f4] flex justify-center items-center text-[20px]'>
-										<BiSolidLike />
+									<button
+										onClick={() => {
+											handleUpdate(data?._id)
+											Read()
+										}}
+										className='h-[38px] w-[57px] gap-[5px] bg-[#f4f4f4] flex justify-center items-center text-[20px]'
+									>
+										<BiSolidLike />{' '}
+										{data?.likes.length == 0 ? null : data?.likes.length}
 									</button>
-									<button className='h-[38px] w-[57px] bg-[#f4f4f4] flex justify-center items-center text-[20px]'>
+									<button
+										onClick={() => {
+											disLike(data?._id)
+											Read()
+										}}
+										className='h-[38px] w-[57px] bg-[#f4f4f4] flex justify-center items-center text-[20px]'
+									>
 										<BiSolidDislike />
 									</button>
 									<Link
-										to={`/post/${data._id}`}
+										to={`/post/${data?._id}`}
 										className='px-[21px] py-[7px] bg-primary text-white rounded-[4px]'
 									>
 										Discussion
 									</Link>
+
+									<button
+										className={`${
+											userData.user._id == data.user ? 'block' : 'hidden'
+										} bg-red-500 px-[21px] py-[10px] rounded-[4px] text-white text-[20px]`}
+										onClick={() => {
+											handleDelete(data._id)
+										}}
+									>
+										<FaXmark />
+									</button>
 								</div>
 							</div>
 						</div>
