@@ -141,7 +141,7 @@ function Post() {
 
 									<button
 										className={`${
-											userData.user._id == data.user ? 'block' : 'hidden'
+											userData?.user?._id == data?.user ? 'block' : 'hidden'
 										} bg-red-500 px-[21px] py-[10px] rounded-[4px] text-white text-[20px]`}
 										onClick={() => {
 											handleDelete(data._id)

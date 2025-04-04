@@ -3,13 +3,17 @@ import { Navigate, Route, HashRouter as Router, Routes } from 'react-router-dom'
 import MainLayaout from './components/layout/MainLayout'
 import { AppContext } from './context/ContexApi'
 import NotFoundPage from './pages/404'
+import AddEducation from './pages/AddEducation'
+import AddExperience from './pages/AddExperience'
 import Home from './pages/Home'
+import CreatProfil from './pages/creatProfil'
 import Dashboard from './pages/dashboard'
 import Developers from './pages/developers'
 import Login from './pages/login'
 import PostData from './pages/post'
 import Post from './pages/posts'
 import Profil from './pages/profil'
+import AddPofil from './pages/profiladd'
 import Registration from './pages/registration'
 
 function App() {
@@ -71,6 +75,40 @@ function App() {
 							element={
 								<ProtateRoute>
 									<PostData />
+								</ProtateRoute>
+							}
+						/>
+						<Route
+							path='/CreatProfil'
+							element={
+								<ProtateRoute>
+									<CreatProfil />
+								</ProtateRoute>
+							}
+						/>
+						<Route
+							path='/addProfil'
+							element={
+								<ProtateRoute>
+									<AddPofil />
+								</ProtateRoute>
+							}
+						/>
+
+						<Route
+							path='/AddExperience'
+							element={
+								<ProtateRoute>
+									<AddExperience />
+								</ProtateRoute>
+							}
+						/>
+
+						<Route
+							path='/AddEducation'
+							element={
+								<ProtateRoute>
+									<AddEducation />
 								</ProtateRoute>
 							}
 						/>
