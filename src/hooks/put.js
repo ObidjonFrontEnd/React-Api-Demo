@@ -6,12 +6,12 @@ const useUpdateData = url => {
 	const [error, setError] = useState(null)
 	const token = localStorage.getItem('token')
 
-	const updateData = async id => {
+	const updateData = async (id, updatedData) => {
 		setLoading(true)
 		try {
 			const response = await apiClient.put(
 				`${url}/${id}`,
-				{},
+				{ updatedData },
 				{
 					headers: {
 						'x-auth-token': token,

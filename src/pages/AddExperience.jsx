@@ -1,9 +1,9 @@
+import { X } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import useUpdateData from '../hooks/put'
+import useUpdateDataBez from '../hooks/putBezId'
 
 function AddExperience() {
-	
 	const [title, titleSet] = useState('')
 	const [company, companySet] = useState('')
 	const [location, locationSet] = useState('')
@@ -11,14 +11,22 @@ function AddExperience() {
 	const [to, toSet] = useState('')
 	const [description, descriptionSet] = useState('')
 
-	const { updateData } = useUpdateData('/profile/experience')
-
-	const handleUpdate = async userId => {
-		await updateData(userId)
+	const { updateDataBez, error  , setError} = useUpdateDataBez(
+		'/profile/experience'
+	)
+	const handleUpdate = async () => {
+		await updateDataBez({
+			title,
+			company,
+			location,
+			from,
+			to,
+			description,
+		})
 	}
 
 	return (
-		<>
+		<div className=' relative '>
 			<div className='lg:max-w-[1000px] mx-auto px-[20px] py-[30px]'>
 				<h2 className='text-primary text-[48px] font-bold'>
 					Add An Experience
@@ -28,8 +36,28 @@ function AddExperience() {
 				</p>
 			</div>
 
+			<div
+				className={`${
+					error ? 'scale-1' : 'scale-0'
+				} flex justify-center flex-col gap-[10px] items-center rounded-[4px] duration-[1s] absolute top-[50px] right-[50px] bg-transparent text-white font-bold w-[250px] min-h-[100px] py-[10px] px-[10px]`}
+			>
+				{error?.map(({ msg } ) => {
+					return (
+						<div className='w-[200px] bg-red-500 mx-auto px-[10px] py-[10px] flex justify-center items-center h-[80px] relative rounded-[8px]'>
+							<h1 className='text-[12px]'>{msg}</h1>
+							<div className=' absolute top-[3px] right-[3px]'>
+								<X onClick={setError(null)} />
+							</div>
+						</div>
+					)
+				})}
+			</div>
+
 			<form
-				onSubmit={handleUpdate}
+				onSubmit={event => {
+					event.preventDefault()
+					handleUpdate()
+				}}
 				action=''
 				className='lg:max-w-[1000px] mx-auto px-[20px]'
 			>
@@ -65,7 +93,7 @@ function AddExperience() {
 					<input
 						type='date'
 						className='w-full outline-none py-[5px] px-[10px] border-gray-400 border-[1px] border-solid rounded-[4px] mb-[20px]'
-						onChange={e => fromSet(e.location.value)}
+						onChange={e => fromSet(e.target.value)}
 					/>
 				</label>
 
@@ -74,7 +102,7 @@ function AddExperience() {
 					<input
 						type='date'
 						className='w-full outline-none py-[5px] px-[10px] border-gray-400 border-[1px] border-solid rounded-[4px] mb-[20px]'
-						onChange={e => toSet(e.location.value)}
+						onChange={e => toSet(e.target.value)}
 					/>
 				</label>
 
@@ -97,7 +125,7 @@ function AddExperience() {
 					Go Back
 				</Link>
 			</form>
-		</>
+		</div>
 	)
 }
 
